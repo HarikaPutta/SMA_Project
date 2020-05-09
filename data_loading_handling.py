@@ -4,14 +4,15 @@ import plots as plt
 
 
 # Load the dataset
-def load_dataset():
+def load_dataset(path):
     headers = ['userId', 'movieId', 'genreID',
                'reviewId', 'movieRating', 'reviewDate']
     columns = ['userId', 'movieId', 'genreID', 'movieRating']
-    data = pd.read_csv('Ciao-DVD-Datasets/movie-ratings.txt',
-                       sep=',', names=headers, usecols=columns, dtype={'userId': 'int', 'movieId': 'int', 'genreID': 'str'})
+    data = pd.read_csv(path, sep=',', names=headers, usecols=columns, dtype={
+                       'userId': 'int', 'movieId': 'int', 'genreID': 'str'})
     # Returning the dataset
     return data
+
 
 def get_information(data):
     # Getting the basic information about the data
@@ -22,6 +23,8 @@ def get_information(data):
     print(f"Users: {num_users}\nMovies: {num_items}\nCategories: {num_cat}\nRatings count: {len(data)}\nSparsity: {sparsity}\n")
 
 # Split the data into train(80%) and test(20%)
+
+
 def split_train_test_custom(data, percent_test):
     n, m = data.shape  # # users, # movies
     N = n * m  # # cells in matrix
@@ -56,17 +59,21 @@ def split_train_test_custom(data, percent_test):
     return train, test
 
 # Pruning dataset to remove some information based on 3 parameters (users, items or randomly)
+
+
 def prune_dataset(data, users_avg=None, ratings=None, pu=5, pm=25, pr=0.25, how='r'):
-    pruned_ds={}
+    pruned_ds = {}
     if(how == 'u' and ~users_avg.empty):
         print("Pruned by User")
         unpopular_users = users_avg.loc[users_avg['ratings_per_user'] < pu].index
-        pruned_ds = data.drop(data.loc[data['userId'].isin(unpopular_users)].index)
+        pruned_ds = data.drop(
+            data.loc[data['userId'].isin(unpopular_users)].index)
         pruned_ds.shape
     elif(how == 'm' and ~ratings.empty):
         print("Pruned by Movie")
         unpopular_movies = ratings.loc[ratings['ratings_per_movie'] < pm].index
-        pruned_ds = data.drop(data.loc[data['movieId'].isin(unpopular_movies)].index)
+        pruned_ds = data.drop(
+            data.loc[data['movieId'].isin(unpopular_movies)].index)
         pruned_ds.shape
     else:
         print("Pruned by Random Method")
@@ -74,37 +81,49 @@ def prune_dataset(data, users_avg=None, ratings=None, pu=5, pm=25, pr=0.25, how=
     return pruned_ds
 
 # Getting aditional information of dataset and plotting if is required
-def ratings_analysis(data, Isplot= False):
+
+
+def ratings_analysis(data, Isplot=False):
     ratings = pd.DataFrame(data.groupby('movieId')['movieRating'].mean())
-    ratings['ratings_per_movie'] = data.groupby('movieId')['movieRating'].count()
+    ratings['ratings_per_movie'] = data.groupby(
+        'movieId')['movieRating'].count()
     # Plot rating average per movie
     settings = {'axisX': 'movieRating',
-                    'axisY': 'ratings_per_movie', 'topic': 'Movie'}
-    if (Isplot): plt.scatterPlot(ratings, settings)
+                'axisY': 'ratings_per_movie', 'topic': 'Movie'}
+    if (Isplot):
+        plt.scatterPlot(ratings, settings)
     return ratings
 
-def genre_analysis(data, Isplot= False):
+
+def genre_analysis(data, Isplot=False):
     categories = pd.DataFrame(data.groupby('genreID')['movieRating'].mean())
-    categories['ratings_per_category'] = data.groupby('genreID')['movieId'].count()
+    categories['ratings_per_category'] = data.groupby('genreID')[
+        'movieId'].count()
     # Plot number of movies per categories
     plot_settings = {
-        'axisX':'movieRating', 
-        'axisY': 'ratings_per_category', 
-        'topic': 'genre', 
-        'color':'green',
+        'axisX': 'movieRating',
+        'axisY': 'ratings_per_category',
+        'topic': 'genre',
+        'color': 'green',
         'labels': categories.index}
-    if (Isplot): plt.scatterPlot(categories, plot_settings)
+    if (Isplot):
+        plt.scatterPlot(categories, plot_settings)
     return categories
 
-def user_analysis(data, Isplot= False):
-    users_avg = data.groupby("userId")['movieRating'].mean()    
+
+def user_analysis(data, Isplot=False):
+    users_avg = data.groupby("userId")['movieRating'].mean()
     # Plot average rating per user
-    if (Isplot): plt.avg_ratings_per_user(users_avg)
+    if (Isplot):
+        plt.avg_ratings_per_user(users_avg)
     users_avg = pd.DataFrame(users_avg)
-    users_avg['ratings_per_user'] = data.groupby('userId')['movieRating'].count()
+    users_avg['ratings_per_user'] = data.groupby(
+        'userId')['movieRating'].count()
     return users_avg
+
 
 def sparsity_analysis(data):
     # Plot sparsity graph
-    values = data.pivot_table(index = 'userId', columns ='movieId', values = 'movieRating')
+    values = data.pivot_table(
+        index='userId', columns='movieId', values='movieRating')
     plt.sparsityPlot(values)

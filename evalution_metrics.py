@@ -42,17 +42,19 @@ class MeanOfMeansBaseline:
 
 def rmse(test_data, predicted):
     """Calculate Root Mean Square Error by ignoring missing values in the test data."""
-    I = ~np.isnan(test_data)  # indicator for missing values
-    N = I.sum()  # number of non-missing values
+    I = ~np.isnan(test_data)  # indicator for missing values    
     sqerror = abs(test_data - predicted) ** 2  # squared error array
-    mse = sqerror[I].sum() / N  # mean squared error
+    # N = I.sum()  # number of non-missing values
+    # mse = sqerror[I].sum() / N  # mean squared error
+    mse = np.nanmean(sqerror[I])  # mean squared error
     return np.sqrt(mse)
 
 
 def mae(test_data, predicted):
     """Calculate Mean Absolute Error by ignoring missing values in the test data."""
-    I = ~np.isnan(test_data)
-    N = I.sum()  # number of non-missing values
+    I = ~np.isnan(test_data)    
     error = abs(test_data - predicted)  # squared error array
-    mae = (error[I].sum() / N).sum()
+    # N = I.sum()  # number of non-missing values
+    # mae = (error[I].sum() / N).sum()
+    mae = np.nanmean(error[I])  # mean error
     return mae
