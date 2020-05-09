@@ -16,7 +16,7 @@ DIM = 10
 # Loading the dataset
 data = dlh.load_dataset()
 # Selecting random rows from the entire dataset
-selected_data = dlh.select_random_data(data, 0.1)
+selected_data = dlh.prune_dataset(data, pr=0.1)
 
 # Getting the reshaped DataFrame organized by given index / column values.
 dense_data = selected_data.pivot_table(index='userId', columns='movieId', values='movieRating').values

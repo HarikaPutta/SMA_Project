@@ -8,7 +8,7 @@ def scatterPlot(ratings, settings):
     labels = settings['labels'] if 'labels' in settings else []
     color = settings['color'] if 'color' in settings else 'red'
 
-    _, ax = plt.subplots(figsize=(15, 5))
+    _, ax = plt.subplots(figsize=(10, 4))
     ax.scatter(x, y, c=color, alpha=0.5)
     ax.set_ylabel(f'No. of ratings per {settings["topic"]}') 
     ax.set_xlabel(f'Mean {settings["topic"]} rating') 
@@ -21,7 +21,7 @@ def scatterPlot(ratings, settings):
 
 def avg_ratings_per_user(user_means):
     user_means = user_means.sort_values()
-    _, ax = plt.subplots(figsize=(15, 5))
+    _, ax = plt.subplots(figsize=(10, 4))
     ax.plot(np.arange(len(user_means)), user_means.values, 'k-')
 
     ax.fill_between(np.arange(len(user_means)), user_means.values, alpha=0.3)
@@ -31,4 +31,13 @@ def avg_ratings_per_user(user_means):
     ax.set_ylim(0, 5.5) 
     ax.set_xlim(0, len(user_means))
     plt.title('User rating trend')
+    plt.show()
+
+def sparsityPlot(data):
+    _, ax = plt.subplots(figsize=(15, 15))
+    ax.spy(data, markersize=2)
+    ax.set_ylabel('Users') 
+    ax.set_xlabel('Movies') 
+    plt.title('Sparsity Matrix')
+    plt.grid(True)
     plt.show()

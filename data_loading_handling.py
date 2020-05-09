@@ -1,29 +1,25 @@
 import pandas as pd
 import numpy as np
+import plots as plt
 
 
 # Load the dataset
 def load_dataset():
-    headers = ['userId', 'movieId', 'genreID', 'reviewId', 'movieRating', 'reviewDate']
+    headers = ['userId', 'movieId', 'genreID',
+               'reviewId', 'movieRating', 'reviewDate']
     columns = ['userId', 'movieId', 'genreID', 'movieRating']
-    data = pd.read_csv('Ciao-DVD-Datasets/movie-ratings.txt', sep=',', names=headers, usecols=columns,
-                       dtype={"userId": "str", "movieId": "str"})
-
-    # Getting the basic information about the data
-    num_users = data.userId.unique().shape[0]
-    num_items = data.movieId.unique().shape[0]
-    sparsity = 1 - len(data) / (num_users * num_items)
-    print(f"Users: {num_users}\nMovies: {num_items}\nSparsity: {sparsity}")
-
+    data = pd.read_csv('Ciao-DVD-Datasets/movie-ratings.txt',
+                       sep=',', names=headers, usecols=columns, dtype={'userId': 'int', 'movieId': 'int', 'genreID': 'str'})
     # Returning the dataset
     return data
 
-
-# Select some random data from the entire dataset
-def select_random_data(data, percent_test):
-    selected_data = data.sample(frac=percent_test)
-    return selected_data
-
+def get_information(data):
+    # Getting the basic information about the data
+    num_users = data.userId.unique().shape[0]
+    num_items = data.movieId.unique().shape[0]
+    num_cat = data.genreID.unique().shape[0]
+    sparsity = 1 - len(data) / (num_users * num_items)
+    print(f"Users: {num_users}\nMovies: {num_items}\nCategories: {num_cat}\nRatings count: {len(data)}\nSparsity: {sparsity}\n")
 
 # Split the data into train(80%) and test(20%)
 def split_train_test_custom(data, percent_test):
@@ -36,9 +32,11 @@ def split_train_test_custom(data, percent_test):
 
     # Drawing random sample of training data to use for testing.
     tosample = np.where(~np.isnan(train))  # ignore nan values in data
-    idx_pairs = list(zip(tosample[0], tosample[1]))  # tuples of row/col index pairs
+    # tuples of row/col index pairs
+    idx_pairs = list(zip(tosample[0], tosample[1]))
 
-    test_size = int(len(idx_pairs) * percent_test)  # use 20% of data as test set
+    # use 20% of data as test set
+    test_size = int(len(idx_pairs) * percent_test)
     train_size = len(idx_pairs) - test_size  # and remainder for training
 
     indices = np.arange(len(idx_pairs))  # indices of index pairs
@@ -57,13 +55,56 @@ def split_train_test_custom(data, percent_test):
     # Returning train set and test set
     return train, test
 
+# Pruning dataset to remove some information based on 3 parameters (users, items or randomly)
+def prune_dataset(data, users_avg=None, ratings=None, pu=5, pm=25, pr=0.25, how='r'):
+    pruned_ds={}
+    if(how == 'u' and ~users_avg.empty):
+        print("Pruned by User")
+        unpopular_users = users_avg.loc[users_avg['ratings_per_user'] < pu].index
+        pruned_ds = data.drop(data.loc[data['userId'].isin(unpopular_users)].index)
+        pruned_ds.shape
+    elif(how == 'm' and ~ratings.empty):
+        print("Pruned by Movie")
+        unpopular_movies = ratings.loc[ratings['ratings_per_movie'] < pm].index
+        pruned_ds = data.drop(data.loc[data['movieId'].isin(unpopular_movies)].index)
+        pruned_ds.shape
+    else:
+        print("Pruned by Random Method")
+        pruned_ds = data.sample(frac=pr)
+    return pruned_ds
 
-def data_analysis(data):
-    # Extract the ratings from the DataFrame
-    ratings = data.movieRating
-    # Plot histogram
-    data.groupby('rating').size().plot(kind='bar');
-    data.movieRating.describe()
-    movie_means = data['movieId'].groupby('movieId').movieRating.mean()
-    movie_means[:50].plot(kind='bar', grid=False, figsize=(16, 6),
-                          title="Mean ratings for 50 movies");
+# Getting aditional information of dataset and plotting if is required
+def ratings_analysis(data, Isplot= False):
+    ratings = pd.DataFrame(data.groupby('movieId')['movieRating'].mean())
+    ratings['ratings_per_movie'] = data.groupby('movieId')['movieRating'].count()
+    # Plot rating average per movie
+    settings = {'axisX': 'movieRating',
+                    'axisY': 'ratings_per_movie', 'topic': 'Movie'}
+    if (Isplot): plt.scatterPlot(ratings, settings)
+    return ratings
+
+def genre_analysis(data, Isplot= False):
+    categories = pd.DataFrame(data.groupby('genreID')['movieRating'].mean())
+    categories['ratings_per_category'] = data.groupby('genreID')['movieId'].count()
+    # Plot number of movies per categories
+    plot_settings = {
+        'axisX':'movieRating', 
+        'axisY': 'ratings_per_category', 
+        'topic': 'genre', 
+        'color':'green',
+        'labels': categories.index}
+    if (Isplot): plt.scatterPlot(categories, plot_settings)
+    return categories
+
+def user_analysis(data, Isplot= False):
+    users_avg = data.groupby("userId")['movieRating'].mean()    
+    # Plot average rating per user
+    if (Isplot): plt.avg_ratings_per_user(users_avg)
+    users_avg = pd.DataFrame(users_avg)
+    users_avg['ratings_per_user'] = data.groupby('userId')['movieRating'].count()
+    return users_avg
+
+def sparsity_analysis(data):
+    # Plot sparsity graph
+    values = data.pivot_table(index = 'userId', columns ='movieId', values = 'movieRating')
+    plt.sparsityPlot(values)
