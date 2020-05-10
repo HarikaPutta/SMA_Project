@@ -14,7 +14,9 @@ DIM = 10
 
 
 # Loading the dataset
-data = dlh.load_dataset()
+path = 'Ciao-DVD-Datasets/movie-ratings.txt'
+data = dlh.load_dataset(path)
+
 # Selecting random rows from the entire dataset
 selected_data = dlh.prune_dataset(data, pr=0.1)
 
