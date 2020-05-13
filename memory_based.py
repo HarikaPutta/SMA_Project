@@ -49,7 +49,7 @@ class MeB:
             neighbors[item] = user_corr.iloc[:k].index.values
             item = item + 1
         self.neighbors = neighbors
-        print(self.neighbors.shape)
+        # print(self.neighbors.shape)
 
     def get_user_avgs(self):
         user_avg = np.nanmean(self.train, axis=1)
