@@ -6,7 +6,7 @@ def load_dataset_pmf():
     """Load the dataset"""
     headers = ['userId', 'movieId', 'genreID', 'reviewId', 'movieRating', 'reviewDate']
     columns = ['userId', 'movieId', 'movieRating']
-    data = pd.read_csv('Ciao-DVD-Datasets/movie-ratings_test.txt', sep=',', names=headers, usecols=columns,
+    data = pd.read_csv('Ciao-DVD-Datasets/movie-ratings.txt', sep=',', names=headers, usecols=columns,
                        dtype={'userId': 'int', 'movieId': 'int'})
     data = data - [1, 1, 0]
     # Getting the basic information about the data

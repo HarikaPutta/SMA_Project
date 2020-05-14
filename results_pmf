@@ -1,2 +1,329 @@
 
+PMF model with 4 latent dimensions....
+Time to build model: 139.42231 seconds
+Time to test model: 0.01566 seconds
+RMSE on test data: 2.592572
+MAE on test data: 2.189638
+The model converged at iteration:  10
 
+PMF model with 5 latent dimensions....
+Time to build model: 161.55884 seconds
+Time to test model: 0.02166 seconds
+RMSE on test data: 2.567699
+MAE on test data: 2.165872
+The model converged at iteration:  10
+
+PMF model with 6 latent dimensions....
+Time to build model: 126.06265 seconds
+Time to test model: 0.02294 seconds
+RMSE on test data: 2.683667
+MAE on test data: 2.305676
+The model converged at iteration:  8
+
+PMF model with 7 latent dimensions....
+Time to build model: 186.30121 seconds
+Time to test model: 0.02094 seconds
+RMSE on test data: 2.581728
+MAE on test data: 2.187717
+The model converged at iteration:  10
+
+PMF model with 8 latent dimensions....
+Time to build model: 142.64756 seconds
+Time to test model: 0.02394 seconds
+RMSE on test data: 2.695007
+MAE on test data: 2.329262
+The model converged at iteration:  8
+
+PMF model with 9 latent dimensions....
+Time to build model: 136.04874 seconds
+Time to test model: 0.02693 seconds
+RMSE on test data: 2.656875
+MAE on test data: 2.278963
+The model converged at iteration:  8
+
+PMF model with 10 latent dimensions....
+Time to build model: 167.05852 seconds
+Time to test model: 0.02493 seconds
+RMSE on test data: 2.671588
+MAE on test data: 2.303380
+The model converged at iteration:  8
+
+PMF model with 11 latent dimensions....
+Time to build model: 162.19762 seconds
+Time to test model: 0.02294 seconds
+RMSE on test data: 2.563930
+MAE on test data: 2.175349
+The model converged at iteration:  10
+
+PMF model with 12 latent dimensions....
+Time to build model: 144.84159 seconds
+Time to test model: 0.02191 seconds
+RMSE on test data: 2.590005
+MAE on test data: 2.201454
+The model converged at iteration:  9
+
+PMF model with 13 latent dimensions....
+Time to build model: 167.60673 seconds
+Time to test model: 0.02593 seconds
+RMSE on test data: 2.512699
+MAE on test data: 2.111802
+The model converged at iteration:  11
+
+PMF model with 14 latent dimensions....
+Time to build model: 153.70832 seconds
+Time to test model: 0.02593 seconds
+RMSE on test data: 2.591280
+MAE on test data: 2.203992
+The model converged at iteration:  9
+
+PMF model with 15 latent dimensions....
+Time to build model: 119.50569 seconds
+Time to test model: 0.02693 seconds
+RMSE on test data: 2.727158
+MAE on test data: 2.371784
+The model converged at iteration:  7
+
+PMF model with 16 latent dimensions....
+Time to build model: 142.61822 seconds
+Time to test model: 0.02693 seconds
+RMSE on test data: 2.614439
+MAE on test data: 2.229721
+The model converged at iteration:  8
+
+PMF model with 17 latent dimensions....
+Time to build model: 141.02703 seconds
+Time to test model: 0.02793 seconds
+RMSE on test data: 2.681735
+MAE on test data: 2.313982
+The model converged at iteration:  7
+
+PMF model with 18 latent dimensions....
+Time to build model: 164.92193 seconds
+Time to test model: 0.04043 seconds
+RMSE on test data: 2.546640
+MAE on test data: 2.154035
+The model converged at iteration:  9
+
+PMF model with 19 latent dimensions....
+Time to build model: 172.75169 seconds
+Time to test model: 0.03192 seconds
+RMSE on test data: 2.667097
+MAE on test data: 2.299362
+The model converged at iteration:  7
+
+PMF model with 20 latent dimensions....
+Time to build model: 163.34582 seconds
+Time to test model: 0.06087 seconds
+RMSE on test data: 2.651113
+MAE on test data: 2.279115
+The model converged at iteration:  7
+
+PMF model with 21 latent dimensions....
+Time to build model: 144.78557 seconds
+Time to test model: 0.04587 seconds
+RMSE on test data: 2.621200
+MAE on test data: 2.242139
+The model converged at iteration:  7
+
+PMF model with 22 latent dimensions....
+Time to build model: 166.82378 seconds
+Time to test model: 0.04788 seconds
+RMSE on test data: 2.594518
+MAE on test data: 2.212241
+The model converged at iteration:  8
+
+PMF model with 23 latent dimensions....
+Time to build model: 146.10263 seconds
+Time to test model: 0.03291 seconds
+RMSE on test data: 2.671181
+MAE on test data: 2.301964
+The model converged at iteration:  7
+
+PMF model with 24 latent dimensions....
+Time to build model: 167.60598 seconds
+Time to test model: 0.02987 seconds
+RMSE on test data: 2.554361
+MAE on test data: 2.160342
+The model converged at iteration:  8
+
+PMF model with 25 latent dimensions....
+Time to build model: 153.57751 seconds
+Time to test model: 0.03092 seconds
+RMSE on test data: 2.617444
+MAE on test data: 2.242564
+The model converged at iteration:  7
+
+PMF model with 26 latent dimensions....
+Time to build model: 144.59928 seconds
+Time to test model: 0.03790 seconds
+RMSE on test data: 2.601677
+MAE on test data: 2.221175
+The model converged at iteration:  7
+
+PMF model with 27 latent dimensions....
+Time to build model: 151.31502 seconds
+Time to test model: 0.03321 seconds
+RMSE on test data: 2.612144
+MAE on test data: 2.233601
+The model converged at iteration:  7
+
+PMF model with 28 latent dimensions....
+Time to build model: 238.06964 seconds
+Time to test model: 0.03590 seconds
+RMSE on test data: 2.468775
+MAE on test data: 2.067788
+The model converged at iteration:  10
+
+PMF model with 29 latent dimensions....
+Time to build model: 173.98367 seconds
+Time to test model: 0.07131 seconds
+RMSE on test data: 2.624878
+MAE on test data: 2.249120
+The model converged at iteration:  7
+
+PMF model with 30 latent dimensions....
+Time to build model: 114.57289 seconds
+Time to test model: 0.02593 seconds
+RMSE on test data: 2.781907
+MAE on test data: 2.445949
+The model converged at iteration:  5
+
+PMF model with 31 latent dimensions....
+Time to build model: 106.62331 seconds
+Time to test model: 0.04589 seconds
+RMSE on test data: 2.776261
+MAE on test data: 2.439000
+The model converged at iteration:  5
+
+PMF model with 32 latent dimensions....
+Time to build model: 115.79575 seconds
+Time to test model: 0.05086 seconds
+RMSE on test data: 2.784322
+MAE on test data: 2.446083
+The model converged at iteration:  5
+
+PMF model with 33 latent dimensions....
+Time to build model: 148.97558 seconds
+Time to test model: 0.03191 seconds
+RMSE on test data: 2.579167
+MAE on test data: 2.197013
+The model converged at iteration:  7
+
+PMF model with 34 latent dimensions....
+Time to build model: 92.88147 seconds
+Time to test model: 0.04189 seconds
+RMSE on test data: 2.790006
+MAE on test data: 2.456367
+The model converged at iteration:  5
+
+PMF model with 35 latent dimensions....
+Time to build model: 59.65589 seconds
+Time to test model: 0.03989 seconds
+RMSE on test data: 2.940540
+MAE on test data: 2.647494
+The model converged at iteration:  3
+
+PMF model with 36 latent dimensions....
+Time to build model: 47.57401 seconds
+Time to test model: 0.02892 seconds
+RMSE on test data: 2.924891
+MAE on test data: 2.629336
+The model converged at iteration:  3
+
+PMF model with 37 latent dimensions....
+Time to build model: 82.84232 seconds
+Time to test model: 0.03203 seconds
+RMSE on test data: 2.768958
+MAE on test data: 2.430493
+The model converged at iteration:  5
+
+PMF model with 38 latent dimensions....
+Time to build model: 123.44797 seconds
+Time to test model: 0.03701 seconds
+RMSE on test data: 2.783140
+MAE on test data: 2.448438
+The model converged at iteration:  5
+
+PMF model with 39 latent dimensions....
+Time to build model: 103.34335 seconds
+Time to test model: 0.07141 seconds
+RMSE on test data: 2.920619
+MAE on test data: 2.620068
+The model converged at iteration:  3
+
+PMF model with 40 latent dimensions....
+Time to build model: 155.93006 seconds
+Time to test model: 0.05097 seconds
+RMSE on test data: 2.774237
+MAE on test data: 2.438646
+The model converged at iteration:  5
+
+PMF model with 41 latent dimensions....
+Time to build model: 107.84795 seconds
+Time to test model: 0.08560 seconds
+RMSE on test data: 2.903074
+MAE on test data: 2.600528
+The model converged at iteration:  3
+
+PMF model with 42 latent dimensions....
+Time to build model: 100.06092 seconds
+Time to test model: 0.06542 seconds
+RMSE on test data: 2.891694
+MAE on test data: 2.586351
+The model converged at iteration:  3
+
+PMF model with 43 latent dimensions....
+Time to build model: 88.75615 seconds
+Time to test model: 0.05956 seconds
+RMSE on test data: 2.899638
+MAE on test data: 2.593987
+The model converged at iteration:  3
+
+PMF model with 44 latent dimensions....
+Time to build model: 146.29849 seconds
+Time to test model: 0.07667 seconds
+RMSE on test data: 2.753527
+MAE on test data: 2.414379
+The model converged at iteration:  5
+
+PMF model with 45 latent dimensions....
+Time to build model: 91.39807 seconds
+Time to test model: 0.06038 seconds
+RMSE on test data: 2.888861
+MAE on test data: 2.584862
+The model converged at iteration:  3
+
+PMF model with 46 latent dimensions....
+Time to build model: 90.63722 seconds
+Time to test model: 0.07623 seconds
+RMSE on test data: 2.887828
+MAE on test data: 2.578813
+The model converged at iteration:  3
+
+PMF model with 47 latent dimensions....
+Time to build model: 88.12866 seconds
+Time to test model: 0.06591 seconds
+RMSE on test data: 2.875242
+MAE on test data: 2.563066
+The model converged at iteration:  3
+
+PMF model with 48 latent dimensions....
+Time to build model: 84.64721 seconds
+Time to test model: 0.06983 seconds
+RMSE on test data: 2.869988
+MAE on test data: 2.553175
+The model converged at iteration:  3
+
+PMF model with 49 latent dimensions....
+Time to build model: 132.58824 seconds
+Time to test model: 0.07181 seconds
+RMSE on test data: 2.729659
+MAE on test data: 2.386679
+The model converged at iteration:  5
+
+PMF model with 50 latent dimensions....
+Time to build model: 147.22642 seconds
+Time to test model: 0.06000 seconds
+RMSE on test data: 2.711624
+MAE on test data: 2.361850
+The model converged at iteration:  5

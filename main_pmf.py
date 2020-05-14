@@ -12,7 +12,7 @@ logging.basicConfig(format='%(message)s', level=logging.INFO)
 # Parameters required
 lambda_u = 0.02
 lambda_v = 0.02
-latent_dim = 5
+latent_dim = 50
 learn_rate = 0.005
 num_iters = 10000
 bounds = (1, 5)
@@ -37,6 +37,9 @@ for ele in train_data:
 
 # Constructing the PMF model
 logging.info('\nBuilding the PMF model with {:d} latent dimensions....'.format(latent_dim))
+# Saving the latent dimensions to a file
+print('\nPMF model with {:d} latent dimensions....'.format(latent_dim), file=results_pmf)
+
 time_start = time.time()
 pmf_model = mbcf.PMF(rating_matrix=rating_matrix, lambda_u=lambda_u, lambda_v=lambda_v, latent_dim=latent_dim,
                      learn_rate=learn_rate, momentum=0.9, num_iters=num_iters, seed=1)
@@ -45,7 +48,6 @@ time_elapsed = time.time() - time_start
 logging.info('Completed model building in {0:.5f} seconds'.format(time_elapsed))
 
 # Saving the build time to a file
-print('PMF model with {:d} latent dimensions....'.format(latent_dim), file=results_pmf)
 print('Time to build model: {0:.5f} seconds'.format(time_elapsed), file=results_pmf)
 
 logging.info('Testing the PMF model with {:d} latent dimensions....'.format(latent_dim))
@@ -70,4 +72,4 @@ print('MAE on test data: {:f}'.format(test_mae))
 
 # Saving the errors to a file
 print('RMSE on test data: {:f}'.format(test_rmse), file=results_pmf)
-print('MAE on test data: {:f}\n'.format(test_mae), file=results_pmf)
+print('MAE on test data: {:f}'.format(test_mae), file=results_pmf)
