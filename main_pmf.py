@@ -7,7 +7,7 @@ import model_based_cf as mbcf
 from support import evaluation_metrics as em
 
 # Logging configuration
-logging.basicConfig(format='%(message)s', level=logging.INFO)
+logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 
 # Parameters required
 lambda_u = 0.02
@@ -39,7 +39,7 @@ rating_matrix = np.zeros([num_users, num_items])
 for ele in train_data:
     rating_matrix[int(ele[0]), int(ele[1])] = float(ele[2])
 
-print('Parameters for the model are: \nlambda_u: {:f}, \nlambda_v: {:f}, '
+print('\nParameters for the model are: \nlambda_u: {:f}, \nlambda_v: {:f}, '
       '\nLearning rate: {:f}, \nNumber of iterations: {:d}'.format(lambda_u, lambda_v, learn_rate,
                                                                    num_iters))
 # Saving the parameters to a file
@@ -48,7 +48,7 @@ print('Parameters for the model are: \nlambda_u: {:f}, \nlambda_v: {:f}, \nLearn
 
 for latent_dim in range(latent_dims[0], latent_dims[1]+1, 1):
     # Constructing the PMF model
-    logging.info('\nBuilding the PMF model with {:d} latent dimensions....'.format(latent_dim))
+    logging.info('Building the PMF model with {:d} latent dimensions....'.format(latent_dim))
     # Saving the latent dimensions to a file
     print('\nPMF model with {:d} latent dimensions....'.format(latent_dim), file=results_pmf)
 

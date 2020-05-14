@@ -2,18 +2,17 @@ import pandas as pd
 import numpy as np
 from support import plots as plt
 
-# Load the dataset
-
 
 def load_dataset(path, pmf=False):
+    """Load the dataset"""
     headers = ['userId', 'movieId', 'genreID',
                'reviewId', 'movieRating', 'reviewDate']
     columns = ['userId', 'movieId', 'genreID', 'movieRating']
     data = pd.read_csv(path, sep=',', names=headers, usecols=columns, dtype={
                        'userId': 'int', 'movieId': 'int', 'genreID': 'str'})
 
-    if(pmf):
-        # This change adapt the dataset to be handled by PMF algorithm
+    if pmf:
+        # Changing the dataset into a format suitable for PMF
         data[['userId', 'movieId']] = data[['userId', 'movieId']] - [1, 1]
 
     return data
@@ -26,12 +25,12 @@ def get_information(data):
     num_cat = data.genreID.unique().shape[0]
     density = len(data) / (num_users * num_items)
     sparsity = 1 - len(data) / (num_users * num_items)
-    print(f"Users: {num_users}\nMovies: {num_items}\nCategories: {num_cat}\nRatings count: {len(data)}\nDensity: {density:5f}\nSparsity: {sparsity:5f}\n")
-
-# Split the data into train(80%) and test(20%)
+    print(f"No.of Users: {num_users}\nNo.of Movies: {num_items}\nNo.of Categories: {num_cat}"
+          f"\nRatings count: {len(data)}\nDensity: {density:5f}\nSparsity: {sparsity:5f}\n")
 
 
 def split_train_test_custom(data, percent_test):
+    """Split the data into train(80%) and test(20%)"""
     n, m = data.shape  # # users, # movies
     N = n * m  # # cells in matrix
 
@@ -73,17 +72,16 @@ def train_validate_test_split_pmf(data):
     return train.values, validate.values, test.values
 
 
-# Pruning dataset to remove some information based on 3 parameters (users, items or randomly)
-
 def prune_dataset(data, users_avg=None, ratings=None, pu=5, pm=25, pr=0.25, how='r'):
+    """Pruning dataset to remove some information based on 3 parameters (users, items or randomly)"""
     pruned_ds = {}
-    if(how == 'u' and ~users_avg.empty):
+    if how == 'u' and ~users_avg.empty:
         print("Pruned by User")
         unpopular_users = users_avg.loc[users_avg['ratings_per_user'] < pu].index
         pruned_ds = data.drop(
             data.loc[data['userId'].isin(unpopular_users)].index)
         pruned_ds.shape
-    elif(how == 'm' and ~ratings.empty):
+    elif how == 'm' and ~ratings.empty:
         print("Pruned by Movie")
         unpopular_movies = ratings.loc[ratings['ratings_per_movie'] < pm].index
         pruned_ds = data.drop(
@@ -94,17 +92,16 @@ def prune_dataset(data, users_avg=None, ratings=None, pu=5, pm=25, pr=0.25, how=
         pruned_ds = data.sample(frac=pr)
     return pruned_ds
 
-# Getting aditional information of dataset and plotting if is required
-
 
 def ratings_analysis(data, Isplot=False):
+    """Getting additional information of dataset and plotting if is required"""
     ratings = pd.DataFrame(data.groupby('movieId')['movieRating'].mean())
     ratings['ratings_per_movie'] = data.groupby(
         'movieId')['movieRating'].count()
     # Plot rating average per movie
     settings = {'axisX': 'movieRating',
                 'axisY': 'ratings_per_movie', 'topic': 'Movie'}
-    if (Isplot):
+    if Isplot:
         plt.scatterPlot(ratings, settings)
     return ratings
 
@@ -120,7 +117,7 @@ def genre_analysis(data, Isplot=False):
         'topic': 'genre',
         'color': 'green',
         'labels': categories.index}
-    if (Isplot):
+    if Isplot:
         plt.scatterPlot(categories, plot_settings)
     return categories
 
@@ -128,7 +125,7 @@ def genre_analysis(data, Isplot=False):
 def user_analysis(data, Isplot=False):
     users_avg = data.groupby("userId")['movieRating'].mean()
     # Plot average rating per user
-    if (Isplot):
+    if Isplot:
         plt.avg_ratings_per_user(users_avg)
     users_avg = pd.DataFrame(users_avg)
     users_avg['ratings_per_user'] = data.groupby(
@@ -137,7 +134,7 @@ def user_analysis(data, Isplot=False):
 
 
 def sparsity_analysis(data):
-    # Plot sparsity graph
+    """Plot sparsity graph"""
     values = data.pivot_table(
         index='userId', columns='movieId', values='movieRating')
     plt.sparsityPlot(values)

@@ -6,7 +6,7 @@ import copy
 from support import evaluation_metrics as em
 
 # Logging configuration
-logging.basicConfig(format='%(message)s', level=logging.INFO)
+logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
 # Adding a file to save the results
 results_pmf = open('results/results_pmf1', 'a+')
 
@@ -65,15 +65,15 @@ class PMF:
             print('Iteration:{: d}, Loss:{: f}, Validation RMSE:{: f}, Time:{: f} seconds'
                   .format(iter + 1, train_loss, validation_rmse, time.time() - time_start))
             # Saving the iterations to the file
-            #print('Iteration:{: d}, Loss:{: f}, Validation RMSE:{: f}, Time:{: f} seconds'
-             #     .format(iter + 1, train_loss, validation_rmse, time.time() - time_start), file=results_pmf)
+            # print('Iteration:{: d}, Loss:{: f}, Validation RMSE:{: f}, Time:{: f} seconds'
+            #     .format(iter + 1, train_loss, validation_rmse, time.time() - time_start), file=results_pmf)
 
             # If the current iteration has an higher or equal error to the previous iteration, it means that the
             # local minima is at the previous iteration.
             if prev_validation_rmse and (prev_validation_rmse - validation_rmse) <= 0:
                 print('The model converged at iteration: {: d}'.format(iter + 1))
                 # Saving the iterations to the file
-                print('The model converged at iteration: {: d}'.format(iter + 1), file = results_pmf)
+                print('The model converged at iteration: {: d}'.format(iter + 1), file=results_pmf)
                 break
             else:
                 prev_validation_rmse = validation_rmse
