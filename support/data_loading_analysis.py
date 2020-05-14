@@ -1,8 +1,10 @@
 import pandas as pd
 import numpy as np
-import plots as plt
+from support import plots as plt
 
 # Load the dataset
+
+
 def load_dataset(path, pmf=False):
     headers = ['userId', 'movieId', 'genreID',
                'reviewId', 'movieRating', 'reviewDate']
@@ -12,17 +14,19 @@ def load_dataset(path, pmf=False):
 
     if(pmf):
         # This change adapt the dataset to be handled by PMF algorithm
-        data = data - [1, 1, 1, 0]
+        data[['userId', 'movieId']] = data[['userId', 'movieId']] - [1, 1]
 
     return data
+
 
 def get_information(data):
     # Getting the basic information about the data
     num_users = data.userId.unique().shape[0]
     num_items = data.movieId.unique().shape[0]
     num_cat = data.genreID.unique().shape[0]
+    density = len(data) / (num_users * num_items)
     sparsity = 1 - len(data) / (num_users * num_items)
-    print(f"Users: {num_users}\nMovies: {num_items}\nCategories: {num_cat}\nRatings count: {len(data)}\nSparsity: {sparsity}\n")
+    print(f"Users: {num_users}\nMovies: {num_items}\nCategories: {num_cat}\nRatings count: {len(data)}\nDensity: {density:5f}\nSparsity: {sparsity:5f}\n")
 
 # Split the data into train(80%) and test(20%)
 
@@ -60,9 +64,11 @@ def split_train_test_custom(data, percent_test):
     # Returning train set and test set
     return train, test
 
+
 def train_validate_test_split_pmf(data):
     """Split Split the data into train(60%), validation(20%) and test(20%)"""
-    train, validate, test = np.split(data.sample(frac=1), [int(.6 * len(data)), int(.8 * len(data))])
+    train, validate, test = np.split(data.sample(
+        frac=1), [int(.6 * len(data)), int(.8 * len(data))])
     # Returning the data as ndarrays
     return train.values, validate.values, test.values
 

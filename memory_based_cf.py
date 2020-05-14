@@ -12,12 +12,13 @@ class MeB:
         self.bounds = bounds
 
     def pearson_correlation(self):
-        self.pearson_corr = pd.DataFrame(
-            self.train.T, columns=self.user_names).corr()
+        self.pearson_corr = pd.DataFrame(self.train.T, columns=self.user_names).corr()
         print(self.pearson_corr.shape)
-        # Implementation from scratch (poor in performance)
+
+        # # Implementation from scratch (poor in performance)
         # values = []
         # for user in self.train:
+        #     user_values = []
         #     for row in self.train:
         #         user_1 = user
         #         user_2 = row
@@ -36,8 +37,9 @@ class MeB:
         #         den = user1_sqr * user2_sqr
 
         #         correl = num/den
-        #         values.append([correl])
-        # self.pearson_corr = pd.DataFrame(values, columns = self.user_names)
+        #         user_values.append(correl)
+        #     values.append(user_values)
+        # self.pearson_corr = pd.DataFrame(values, index = self.user_names, columns = self.user_names)
 
     def neighborhood(self, k):
         qou = int(self.user_names.shape[0])
