@@ -1,0 +1,75 @@
+Parameters for the model are:
+lambda_u: 0.020000, 
+lambda_v: 0.020000, 
+Learning rate: 0.005000, 
+Number of iterations: 10000
+
+PMF model with 10 latent dimensions....
+Time to build model: 159.92540 seconds
+Time to test model: 0.06362 seconds
+RMSE on test data: 2.858531
+MAE on test data: 2.532243
+
+PMF model with 20 latent dimensions....
+Time to build model: 201.57395 seconds
+Time to test model: 0.04515 seconds
+RMSE on test data: 2.639144
+MAE on test data: 2.261903
+
+PMF model with 30 latent dimensions....
+Time to build model: 147.95575 seconds
+Time to test model: 0.11354 seconds
+RMSE on test data: 2.806077
+MAE on test data: 2.471661
+
+PMF model with 40 latent dimensions....
+Time to build model: 92.01963 seconds
+Time to test model: 0.06491 seconds
+RMSE on test data: 2.923311
+MAE on test data: 2.618960
+
+PMF model with 50 latent dimensions....
+Time to build model: 94.40839 seconds
+Time to test model: 0.05662 seconds
+RMSE on test data: 2.871400
+MAE on test data: 2.554323
+
+PMF model with 60 latent dimensions....
+Time to build model: 96.31059 seconds
+Time to test model: 0.09040 seconds
+RMSE on test data: 2.824465
+MAE on test data: 2.496423
+
+PMF model with 70 latent dimensions....
+Time to build model: 164.96692 seconds
+Time to test model: 0.07164 seconds
+RMSE on test data: 2.657825
+MAE on test data: 2.303945
+
+PMF model with 80 latent dimensions....
+Time to build model: 198.86309 seconds
+Time to test model: 0.10393 seconds
+RMSE on test data: 2.510701
+MAE on test data: 2.132552
+
+PMF model with 90 latent dimensions....
+Time to build model: 199.61117 seconds
+Time to test model: 0.09605 seconds
+RMSE on test data: 2.502568
+MAE on test data: 2.126163
+
+PMF model with 100 latent dimensions....
+Time to build model: 135.63954 seconds
+Time to test model: 0.09131 seconds
+RMSE on test data: 2.632321
+MAE on test data: 2.273019
+The model converged at iteration:  6
+The model converged at iteration:  7
+The model converged at iteration:  5
+The model converged at iteration:  3
+The model converged at iteration:  3
+The model converged at iteration:  3
+The model converged at iteration:  5
+The model converged at iteration:  6
+The model converged at iteration:  6
+The model converged at iteration:  4
