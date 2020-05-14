@@ -47,7 +47,8 @@ RMSE on test data: 2.658161
 MAE on test data: 2.278339
 
 PMF model with 11 latent dimensions....
-Time to build model: 129.88983 seconds8
+Time to build model: 129.88983 seconds
+The model converged at iteration:  8
 Time to test model: 0.04145 seconds
 RMSE on test data: 2.660652
 MAE on test data: 2.283411
