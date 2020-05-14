@@ -42,7 +42,7 @@ print('Parameters for the model are: \nlambda_u: {:f}, \nlambda_v: {:f}, '
 print('Parameters for the model are: \nlambda_u: {:f}, \nlambda_v: {:f}, \nLearning rate: {:f},'
       ' \nNumber of iterations: {:d}'.format(lambda_u, lambda_v, learn_rate, num_iters), file=results_pmf)
 
-for latent_dim in range(latent_dims[0], latent_dims[1], 1):
+for latent_dim in range(latent_dims[0], latent_dims[1]+1, 1):
     # Constructing the PMF model
     logging.info('\nBuilding the PMF model with {:d} latent dimensions....'.format(latent_dim))
     # Saving the latent dimensions to a file

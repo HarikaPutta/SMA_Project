@@ -1,7 +1,7 @@
-Parameters for the model are: 
-lambda_u: 0.020000, 
-lambda_v: 0.020000, 
-Learning rate: 0.005000, 
+Parameters for the model are:
+lambda_u: 0.020000,
+lambda_v: 0.020000,
+Learning rate: 0.005000,
 Number of iterations: 10000
 
 PMF model with 5 latent dimensions....
@@ -318,4 +318,11 @@ The model converged at iteration:  5
 Time to test model: 0.05585 seconds
 RMSE on test data: 2.736958
 MAE on test data: 2.396682
+
+PMF model with 50 latent dimensions....
+Time to build model: 90.17834 seconds
+The model converged at iteration:  5
+Time to test model: 0.07363 seconds
+RMSE on test data: 2.732480
+MAE on test data: 2.389875
 
