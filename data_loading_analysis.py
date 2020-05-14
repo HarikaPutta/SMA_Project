@@ -2,17 +2,19 @@ import pandas as pd
 import numpy as np
 import plots as plt
 
-
 # Load the dataset
-def load_dataset(path):
+def load_dataset(path, pmf=False):
     headers = ['userId', 'movieId', 'genreID',
                'reviewId', 'movieRating', 'reviewDate']
     columns = ['userId', 'movieId', 'genreID', 'movieRating']
     data = pd.read_csv(path, sep=',', names=headers, usecols=columns, dtype={
                        'userId': 'int', 'movieId': 'int', 'genreID': 'str'})
-    # Returning the dataset
-    return data
 
+    if(pmf):
+        # This change adapt the dataset to be handled by PMF algorithm
+        data = data - [1, 1, 1, 0]
+
+    return data
 
 def get_information(data):
     # Getting the basic information about the data
@@ -58,8 +60,14 @@ def split_train_test_custom(data, percent_test):
     # Returning train set and test set
     return train, test
 
-# Pruning dataset to remove some information based on 3 parameters (users, items or randomly)
+def train_validate_test_split_pmf(data):
+    """Split Split the data into train(60%), validation(20%) and test(20%)"""
+    train, validate, test = np.split(data.sample(frac=1), [int(.6 * len(data)), int(.8 * len(data))])
+    # Returning the data as ndarrays
+    return train.values, validate.values, test.values
 
+
+# Pruning dataset to remove some information based on 3 parameters (users, items or randomly)
 
 def prune_dataset(data, users_avg=None, ratings=None, pu=5, pm=25, pr=0.25, how='r'):
     pruned_ds = {}
