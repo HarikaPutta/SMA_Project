@@ -12,13 +12,13 @@ logging.basicConfig(format='%(message)s', level=logging.INFO)
 # Parameters required
 lambda_u = 0.02
 lambda_v = 0.02
-latent_dim = 50
+latent_dims = (5, 50)
 learn_rate = 0.005
 num_iters = 10000
 bounds = (1, 5)
 
 # Adding a file to save the results
-results_pmf = open('results_pmf', 'a+')
+results_pmf = open('results_pmf1', 'a+')
 
 # Loading the dataset
 data = dla.load_dataset_pmf()
@@ -35,41 +35,49 @@ rating_matrix = np.zeros([num_users, num_items])
 for ele in train_data:
     rating_matrix[int(ele[0]), int(ele[1])] = float(ele[2])
 
-# Constructing the PMF model
-logging.info('\nBuilding the PMF model with {:d} latent dimensions....'.format(latent_dim))
-# Saving the latent dimensions to a file
-print('\nPMF model with {:d} latent dimensions....'.format(latent_dim), file=results_pmf)
+print('Parameters for the model are: \nlambda_u: {:f}, \nlambda_v: {:f}, '
+      '\nLearning rate: {:f}, \nNumber of iterations: {:d}'.format(lambda_u, lambda_v, learn_rate,
+                                                                   num_iters))
+# Saving the parameters to a file
+print('Parameters for the model are: \nlambda_u: {:f}, \nlambda_v: {:f}, \nLearning rate: {:f},'
+      ' \nNumber of iterations: {:d}'.format(lambda_u, lambda_v, learn_rate, num_iters), file=results_pmf)
 
-time_start = time.time()
-pmf_model = mbcf.PMF(rating_matrix=rating_matrix, lambda_u=lambda_u, lambda_v=lambda_v, latent_dim=latent_dim,
-                     learn_rate=learn_rate, momentum=0.9, num_iters=num_iters, seed=1)
-U, V = pmf_model.train(train_data=train_data, validation_data=validation_data)
-time_elapsed = time.time() - time_start
-logging.info('Completed model building in {0:.5f} seconds'.format(time_elapsed))
+for latent_dim in range(latent_dims[0], latent_dims[1], 1):
+    # Constructing the PMF model
+    logging.info('\nBuilding the PMF model with {:d} latent dimensions....'.format(latent_dim))
+    # Saving the latent dimensions to a file
+    print('\nPMF model with {:d} latent dimensions....'.format(latent_dim), file=results_pmf)
 
-# Saving the build time to a file
-print('Time to build model: {0:.5f} seconds'.format(time_elapsed), file=results_pmf)
+    time_start = time.time()
+    pmf_model = mbcf.PMF(rating_matrix=rating_matrix, lambda_u=lambda_u, lambda_v=lambda_v, latent_dim=latent_dim,
+                         learn_rate=learn_rate, momentum=0.9, num_iters=num_iters, seed=1)
+    U, V = pmf_model.train(train_data=train_data, validation_data=validation_data)
+    time_elapsed = time.time() - time_start
+    logging.info('Completed model building in {0:.5f} seconds'.format(time_elapsed))
 
-logging.info('Testing the PMF model with {:d} latent dimensions....'.format(latent_dim))
-time_start = time.time()
-predictions = pmf_model.predict(data=test_data)
-time_elapsed = time.time() - time_start
-logging.info('Completed model testing in {0:.5f} seconds'.format(time_elapsed))
-# Saving the test time to a file
-print('Time to test model: {0:.5f} seconds'.format(time_elapsed), file=results_pmf)
+    # Saving the build time to a file
+    print('Time to build model: {0:.5f} seconds'.format(time_elapsed), file=results_pmf)
 
-# Transforming the data to be with in the bounds
-low, high = bounds
-predictions[predictions < low] = low
-predictions[predictions > high] = high
+    logging.info('Testing the PMF model with {:d} latent dimensions....'.format(latent_dim))
+    time_start = time.time()
+    predictions = pmf_model.predict(data=test_data)
+    time_elapsed = time.time() - time_start
+    logging.info('Completed model testing in {0:.5f} seconds'.format(time_elapsed))
+    # Saving the test time to a file
+    print('Time to test model: {0:.5f} seconds'.format(time_elapsed), file=results_pmf)
 
-# Calculating the RMSE and MAE between the test data and the predicted data
-test_rmse = em.RMSE(test_data[:, 2], predictions)
-test_mae = em.MAE(test_data[:, 2], predictions)
+    # Transforming the data to be with in the bounds
+    low, high = bounds
+    predictions[predictions < low] = low
+    predictions[predictions > high] = high
 
-print('RMSE on test data: {:f}'.format(test_rmse))
-print('MAE on test data: {:f}'.format(test_mae))
+    # Calculating the RMSE and MAE between the test data and the predicted data
+    test_rmse = em.RMSE(test_data[:, 2], predictions)
+    test_mae = em.MAE(test_data[:, 2], predictions)
 
-# Saving the errors to a file
-print('RMSE on test data: {:f}'.format(test_rmse), file=results_pmf)
-print('MAE on test data: {:f}'.format(test_mae), file=results_pmf)
+    print('RMSE on test data: {:f}'.format(test_rmse))
+    print('MAE on test data: {:f}'.format(test_mae))
+
+    # Saving the errors to a file
+    print('RMSE on test data: {:f}'.format(test_rmse), file=results_pmf)
+    print('MAE on test data: {:f}'.format(test_mae), file=results_pmf)

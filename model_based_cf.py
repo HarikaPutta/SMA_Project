@@ -8,7 +8,7 @@ import evaluation_metrics as em
 # Logging configuration
 logging.basicConfig(format='%(message)s', level=logging.INFO)
 # Adding a file to save the results
-results_pmf = open('results_pmf', 'a+')
+results_pmf = open('results_pmf1', 'a+')
 
 
 class PMF:
@@ -24,9 +24,7 @@ class PMF:
         self.random_state = RandomState(seed)
         self.iterations = num_iters
         self.learn_rate = learn_rate
-        print('Parameters for the model are: \nlambda_u: {:f}, \nlambda_v: {:f}, \nNumber of latent dimensions: {:d},'
-              '\nLearning rate: {:f}, \nNumber of iterations: {:d}'.format(lambda_u, lambda_v, latent_dim, learn_rate,
-                                                                           num_iters))
+
         # Creating the Identity matrix
         self.I = copy.deepcopy(self.rating_matrix)
         self.I[self.I != 0] = 1
