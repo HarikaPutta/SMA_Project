@@ -28,7 +28,7 @@ users_avg = dla.user_analysis(data_set, True)
 
 # User and Movie treshold to be considered as relevant for dataset (this helps to reduce the dataset size)
 p_user = 1 # threshold to consider a user relevant
-p_movie = 100 # threshold to consider a movie popular
+p_movie = 1 # threshold to consider a movie popular
 p_rnd = 1 # percentage of data to prune 
 how = 'm' # Prune by user 'u', by movie 'm' or randomly 'r'
 
@@ -98,7 +98,7 @@ def get_metrics(prediction):
     logging.info(f"Metrics for k-size= {k} size done in: {end:.5f} seconds")
     return rmse, mae
 
-# Implementation of loop for get the results for different k-size values
+# Testing loop to get the accuracy metrics for different k-size values
 n_times = {} ### Handle neighborhood calculation time
 p_times = {} ### Handle prediction calculation time
 metrics = {} ### Handle metrics calculation time
@@ -110,7 +110,7 @@ for k in range(5, 50, 10):
    rmse, mae = get_metrics(prediction)
    metrics[k] = (rmse,mae)
 
-# External storing of results
+# External storing of results: Please uncomment to generate new files
 # pd.DataFrame(metrics, index=['rmse','mae']).T.to_csv('results/metrics.csv',float_format='%.5f')
 # pd.DataFrame(n_times, index=['time']).T.to_csv('results/neighborhood_time.csv',float_format='%.2f')
 # pd.DataFrame(p_times, index=['time']).T.to_csv('results/prediction_time.csv',float_format='%.2f')

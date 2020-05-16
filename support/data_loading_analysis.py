@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from support import plots as plt
+from support import plots_custom as plt
 
 
 def load_dataset(path, pmf=False):
