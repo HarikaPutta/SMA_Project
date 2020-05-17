@@ -83,7 +83,7 @@ def get_prediction():
     start = time.time()
     prediction = u2u_pc.predict()
     end = time.time() - start
-    logging.info(f"Prediction for k-size= {k} done in: {end:.5f} seconds")
+    logging.info(f"Prediction done in: {end:.5f} seconds")
     return prediction, end
 
 # RMSE and MAE metrics evaluation
@@ -95,7 +95,7 @@ def get_metrics(prediction):
     print('RMSE: ',rmse)
     print('MAE: ',mae)
     end = time.time() - start
-    logging.info(f"Metrics for k-size= {k} size done in: {end:.5f} seconds")
+    logging.info(f"Metrics size done in: {end:.5f} seconds")
     return rmse, mae
 
 # Testing loop to get the accuracy metrics for different k-size values

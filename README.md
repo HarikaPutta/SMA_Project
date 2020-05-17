@@ -87,32 +87,39 @@ Before to run the core of the algorithm there is an optional section to prune th
 - There is a section at the end of the code for writing tehe results of the test in external files, [results](results) folder
 
 # <a name="mob"></a>Model Based Implementation
-PMF:
-- train_validate_test_split_pmf in 60% Trainig, 20% Validation Data, 20% Testing Data
-- Create number Rating matrix with shape (# of users, # movies)
-- Parameters settings
+- For this implementation the dataset is splited in 60% for Trainig, 20% for Validation Data, 20% for Testing. This is made in the train_validate_test_split_pmf() function.
+- Create number Rating matrix with shape (# of users, # movies), with training data.
+- Unlike the previous implementation. PMF is based on a model, which is trained before to get the prediction, this recommender system works better against sparse matrices and face the scalability issues much better. 
+
+    ![PMF](Images/Likelihood.png)
+- The model's inputs are the following:
+Parameters settings
     - lambda_u = 0.02
-lambda_v = 0.02
-latent_dims = (5, 50)
-learn_rate = 0.005
-num_iters = 1000
-bounds = (1, 5)
-- PMF model (image)
-- U, V = pmf_model.train(train_data=train_data, validation_data=validation_data) (image)
-- with model already trained test the prediction for test predictions = pmf_model.predict(data=test_data)
-- RMSE and MAE
-- results stored in results/results_pmf1
+    - lambda_v = 0.02
+    - learn_rate = 0.005
+    - num_iters = 1000
+    - latent_dim = from (5 to 50)
+    - momentum = 0.9
+- The objetive is obtain the latent user and movie feature matrices U, V after applying simple Stochastic Gradient Descent - SGD. 
+    ![Loss_Function](Images/Loss_Function.png)
+- Finally, we predict the prediction of the testing data using the model already trained
+- Results stored in results/results_pmf1
 
 # <a name="testing"></a> Code Testing
-### Memory based:
+### Memory based: User based CF with Pearson Correlation
 
-Before run the code is required to set the parameters for prunning the dataset, although by default these parameters are set to run considering the full dataset values (this process can take huge time, mainly in the pearson correlation section). If you want to reduce the dataset size it is possible in 3 ways:
-* Setting a min value for number of ratings by user. This is posible changing the variable 'p_user' to the value and how = 'u'
-* Setting a min value for number of ratings by movie. This is posible changing the variable 'p_movie' to the value and how = 'u'
-* Setting a number to prune randomly. This is posible seting variable p_rnd with a number greater than 0 and less or equal than 1 and how = 'r'
+Before runing the code is required to set the parameters for prunning the dataset, although by default these parameters are set to run considering the full dataset values (this process can take huge time, mainly in the pearson correlation section). If you want to reduce the dataset size it is possible in 3 ways:
+* Setting a min value for number of ratings by user. This is posible changing the variable _p_user_ to an int value and _how = 'u'_
+* Setting a min value for number of ratings by movie. This is posible changing the variable _p_movie_ to an int value and _how = 'u'_
+* Setting a number to prune randomly. This is posible seting variable _p_rnd_ with a number greater than 0 and less or equal than 1 and _how = 'r'_
 
-The correlation matrix is computed for all users in matrix once, if the train matrix previously obtained doesnt change. If this change or the dataset change, is required recompute the Pearson correlation matrix. This step is required because the target user should identify their most similar users. 
+The correlation matrix is computed for all users once, but if the training dataset changes, it is required re-compute the Pearson correlation matrix. This step is required because the target user should identify their most similar users. 
 
-The testing by default run a loop to make multiple executions automatically, but the functions could be used to compute the neigborhood, and predictions just giving the k size in **get_neighborhood(k_size)** function.
+The testing by default run a loop to make multiple executions automatically, but the functions could be executed sequentially as follow to compute the neigborhood, and predictions just giving the k size in **get_neighborhood(k_size)** function.
+```
+get_neighborhood(k_size)
+prediction, p_time = get_prediction()
+rmse, mae = get_metrics(prediction)
+```
 
-PMF
+### Model based: Probabilistic Matrix Factorization
